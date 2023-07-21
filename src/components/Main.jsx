@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { MdOutlinePostAdd } from 'react-icons/md';
 import data from '../data/week.json'
 
 const Main = (props) => {
   const Data = data.weeks;
+  console.log(Data)
+  const [weekmod, setWeekmod] = useState(Data[0].modules)
+  const [weekmodtask, setWeekmodtask] = useState(Data[0].modules[0])
+  const [bgweek, setBgweek] = useState(Data[0].week_number)
+
   return (
     <div className='flex flex-col'>
       <div className='flex flex-col md:flex-row justify-between my-4 px-8 py-4 w-[90%] md:w-[80%] m-auto bg-white rounded-xl shadow-lg'>
@@ -11,7 +16,11 @@ const Main = (props) => {
           <ul className='flex justify-center'>
             {Data.map((item) => {
               return (
-                <li key={item.id} className='mr-6 hover:bg-gray-600 bg-gray-100 hover:text-white text-gray-500 px-2 md:px-4 py-2 rounded-2xl text-xs md:text-base cursor-pointer'>Week {item.week_number}</li>
+                <li onClick={() => {
+                  setWeekmod(item.modules);
+                  setWeekmodtask(item.modules[0]);
+                  setBgweek(item.week_number);
+                }} key={item.id} className={`mr-6 hover:bg-gray-400 hover:text-white px-2 md:px-4 py-2 rounded-2xl text-xs md:text-base cursor-pointer ${bgweek === item.week_number ? 'bg-gray-600 text-white' : 'bg-gray-200 text-gray-600'}`}>Week {item.week_number}</li>
               )
             })}
           </ul>
@@ -26,8 +35,25 @@ const Main = (props) => {
         </div>
       </div>
       <div className='flex flex-col md:flex-row my-4 py-4 w-[90%] md:w-[80%] m-auto'>
-        <div className='bg-gray-100 mb-8 md:mb-0 md:mr-8 md:w-1/4 px-4 md:h-[70vh] rounded-2xl shadow-lg'>Week 1</div>
-        <div className='bg-gray-100 md:w-3/4 px-4 md:h-[70vh] rounded-2xl shadow-lg'>You are free to create UI</div>
+        <div className='bg-gray-100 mb-8 md:mb-0 md:mr-8 md:w-1/4 px-4 md:h-[70vh] rounded-2xl shadow-lg'>
+          <ul className='flex flex-col'>
+            {weekmod.map((item) => {
+              return (
+                <li onClick={() => { setWeekmodtask(item) }} key={item.id} className='mr-6 hover:bg-gray-600 bg-gray-100 hover:text-white text-gray-500 px-2 md:px-4 py-2 rounded-2xl text-xs md:text-base cursor-pointer'>{item.name}</li>
+              )
+            })}
+          </ul>
+        </div>
+        <div className='bg-gray-100 md:w-3/4 px-4 md:h-[70vh] rounded-2xl shadow-lg'>
+          <h1>{weekmodtask.name}</h1>
+          <ul className='flex flex-col'>
+            {weekmodtask.tasks && weekmodtask.tasks.map((item) => {
+              return (
+                <li key={item.id} className='mr-6 hover:bg-gray-600 bg-gray-100 hover:text-white text-gray-500 px-2 md:px-4 py-2 rounded-2xl text-xs md:text-base cursor-pointer'>{item.name}</li>
+              )
+            })}
+          </ul>
+        </div>
       </div>
     </div>
   )
