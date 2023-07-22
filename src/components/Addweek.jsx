@@ -63,6 +63,7 @@ const Addweek = (props) => {
       const newdata = [];
       let flag = false;
       for (let i = 0; i < props.Data.length; i++) {
+        // eslint-disable-next-line
         if (props.Data[i].week_number == weeks) {
           flag = true;
           w.week_number = parseInt(weeks);
@@ -83,6 +84,7 @@ const Addweek = (props) => {
           props.Data[i].week_number = props.Data[i].week_number + 1;
         }
         newdata.push(props.Data[i]);
+        // eslint-disable-next-line
         if (props.Data[i].week_number == weeks) {
           flag = true;
           w.week_number = parseInt(weeks) + 1;
