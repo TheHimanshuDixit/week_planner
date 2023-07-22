@@ -3,7 +3,7 @@ import { MdOutlinePostAdd } from 'react-icons/md';
 
 import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { BriefcaseIcon, PlusIcon, MinusIcon } from '@heroicons/react/24/outline'
+import { BriefcaseIcon } from '@heroicons/react/24/outline'
 
 const Addweek = (props) => {
 
@@ -54,8 +54,11 @@ const Addweek = (props) => {
         }
       ]
     }
-    // add week to the data order of the weeks?
-    // console.log(order,weeks);
+    setWeekno('');
+    setWeek_mod('');
+    setWeek_task('');
+
+    // add week to the data order of the weeks
     if (order === 'Before') {
       const newdata = [];
       let flag = false;
@@ -90,8 +93,8 @@ const Addweek = (props) => {
     }
   }
   return (
-    <>{props.week ? <div className='w-[70%] md:w-1/5 h-2/5 bg-white mx-auto rounded-lg border border-gray-400 absolute top-20 right-36'>
-      <div className='flex items-center border-b-2 justify-between text-orange-500 text-2xl font-semibold px-4 py-4 rounded-xl shadow-md'>
+    <>{props.week ? <div className='w-[50%] h-1/4 md:w-1/5 md:h-2/5 bg-fuchsia-200 mx-auto rounded-lg border border-gray-500 absolute top-[125px] right-[150px] md:top-[90px] md:right-[151px]'>
+      <div className='flex items-center border-b-2 border-gray-300 justify-between text-fuchsia-500 text-2xl font-semibold px-4 py-4 rounded-xl shadow-md'>
         <div>
           <h1>Add New Week</h1>
         </div>
@@ -101,14 +104,14 @@ const Addweek = (props) => {
       </div>
       <div className='flex justify-between items-center p-4'>
         <div>
-          <select name="order" onChange={handleChange} className='bg-gray-100 p-2 font-medium rounded-xl border focus:outline-none cursor-pointer' defaultValue={"Order"}>
+          <select name="order" onChange={handleChange} className='bg-fuchsia-300 p-2 font-medium rounded-xl border border-black focus:outline-none cursor-pointer' defaultValue={"Order"}>
             <option value="Order" disabled>Order</option>
             <option value="Before">Before</option>
             <option value="After">After</option>
           </select>
         </div>
         <div>
-          <select name="weeks" onChange={handleChange} className='bg-gray-100 p-2 font-medium rounded-xl border focus:outline-none cursor-pointer ' defaultValue={"Weeks"}>
+          <select name="weeks" onChange={handleChange} className='bg-fuchsia-300 p-2 font-medium rounded-xl border border-black focus:outline-none cursor-pointer ' defaultValue={"Weeks"}>
             <option value="Weeks" disabled>Week</option>
             {props.Data.map((item) => {
               return (
@@ -120,12 +123,12 @@ const Addweek = (props) => {
       </div>
       <div>
         <div className='text-sm text-center italic mt-3'>
-          <span className='font-medium'>New Week will be added</span> <span className='text-gray-400'>"order" "week"</span>
+          <span className='font-medium'>New Week will be added</span> <span className='text-fuchsia-500'>"order" "week"</span>
         </div>
       </div>
       <div className='flex justify-between my-8 mx-6'>
-        <button className='bg-blue-100 text-gray-500 font-normal rounded-xl px-6 py-1' onClick={() => props.setWeek(!props.week)}>Cancel</button>
-        <button className='bg-gray-500 text-white rounded-xl px-6 py-1 hover:bg-gray-600' onClick={() => setOpen(true)}>Create</button>
+        <button className='bg-fuchsia-200 border border-black text-black font-normal rounded-xl px-6 py-1 hover:bg-fuchsia-300' onClick={() => props.setWeek(!props.week)}>Cancel</button>
+        <button className='bg-fuchsia-500 border border-black text-white rounded-xl px-6 py-1 hover:bg-fuchsia-600' onClick={() => setOpen(true)}>Create</button>
       </div>
     </div> : <div></div>
     }
@@ -154,40 +157,35 @@ const Addweek = (props) => {
                 leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               >
-                <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                  <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:w-full sm:max-w-lg sm:my-auto">
+                  <div className="bg-blue-50 px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                     <div className="sm:flex sm:items-start">
-                      <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-                        <BriefcaseIcon className="h-6 w-6 text-red-600" aria-hidden="true" />
-
+                      <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10">
+                        <BriefcaseIcon className="h-6 w-6 text-fuchsia-700" aria-hidden="true" />
                       </div>
                       <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                        <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
+                        <Dialog.Title as="h3" className="text-lg font-semibold leading-6 text-gray-900">
                           Assign Week Task {order} Week {weeks}
                         </Dialog.Title>
-                        <div className="mt-2">
-                          <input className='w-full mb-2' type="text" name='weekno' onChange={handleChange} value={weekno} placeholder='Enter Week No.' />
-                          <div>
-                            <input className='w-full mb-2' type="text" name='week_mod' onChange={handleChange} value={week_mod} placeholder='Enter week module' />
-                            {/* <PlusIcon className='h-6 w-6 text-gray-500' onClick={() => { setModno(modno + 1) }} /> */}
-                            <input className='w-full mb-2' type="text" name='week_task' onChange={handleChange} value={week_task} placeholder='Enter week task' />
-                            {/* <PlusIcon className='h-6 w-6 text-gray-500' /> */}
-                          </div>
+                        <div className="mt-4">
+                          <input className='w-full mb-2 border-2 border-black px-2 py-1 bg-gray-200 placeholder:text-black rounded-lg' type="text" name='weekno' onChange={handleChange} value={weekno} placeholder='Enter Week No.' />
+                          <input className='w-full mb-2 border-2 border-black px-2 py-1 bg-gray-200 placeholder:text-black rounded-lg' type="text" name='week_mod' onChange={handleChange} value={week_mod} placeholder='Enter week module' />
+                          <input className='w-full mb-2 border-2 border-black px-2 py-1 bg-gray-200 placeholder:text-black rounded-lg' type="text" name='week_task' onChange={handleChange} value={week_task} placeholder='Enter week task' />
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                  <div className="bg-blue-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                     <button
                       type="button"
-                      className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
+                      className="inline-flex w-full justify-center rounded-md bg-fuchsia-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-fuchsia-500 sm:ml-3 sm:w-auto border-black border"
                       onClick={() => { handleAdd(); setOpen(false); props.setWeek(!props.week) }}
                     >
                       Add
                     </button>
                     <button
                       type="button"
-                      className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                      className="mt-3 inline-flex w-full justify-center rounded-md bg-fuchsia-100 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-fuchsia-200 sm:mt-0 sm:w-auto border-black border"
                       onClick={() => { setOpen(false); props.setWeek(!props.week) }}
                       ref={cancelButtonRef}
                     >
