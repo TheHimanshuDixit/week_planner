@@ -1,20 +1,18 @@
 import React, { useState } from 'react'
 import { MdOutlinePostAdd } from 'react-icons/md';
-import data from '../data/week.json'
 
 const Main = (props) => {
-  const Data = data.weeks;
-  console.log(Data)
-  const [weekmod, setWeekmod] = useState(Data[0].modules)
-  const [weekmodtask, setWeekmodtask] = useState(Data[0].modules[0])
-  const [bgweek, setBgweek] = useState(Data[0].week_number)
+  
+  const [weekmod, setWeekmod] = useState(props.Data[0].modules)
+  const [weekmodtask, setWeekmodtask] = useState(props.Data[0].modules[0])
+  const [bgweek, setBgweek] = useState(props.Data[0].week_number)
 
   return (
     <div className='flex flex-col'>
       <div className='flex flex-col md:flex-row justify-between my-4 px-8 py-4 w-[90%] md:w-[80%] m-auto bg-white rounded-xl shadow-lg'>
         <div>
           <ul className='flex justify-center'>
-            {Data.map((item) => {
+            {props.Data.map((item) => {
               return (
                 <li onClick={() => {
                   setWeekmod(item.modules);
