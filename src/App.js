@@ -12,7 +12,6 @@ function App() {
     setWeek(!week);
   }
 
-
   return (
     <div className="bg-gradient-to-r from-blue-700 to-fuchsia-500 h-[100vh]">
       <Main Data={Data} setData={setData} handleWeek={handleWeek} week={week} setWeek={setWeek} />
